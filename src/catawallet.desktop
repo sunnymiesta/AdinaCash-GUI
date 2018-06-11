@@ -1,0 +1,13 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Catalyst
+GenericName=Catalyst wallet
+Comment=Catalyst wallet
+Exec=catalyst %U
+Terminal=false
+Type=Application
+Icon=catalyst
+MimeType=x-scheme-handler/catalyst;
+Categories=Office;Finance;
+Version=1.2.3
+Name[en_US]=catawallet
