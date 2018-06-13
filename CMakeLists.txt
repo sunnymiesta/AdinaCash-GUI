@@ -5,6 +5,34 @@ include(QREncode.cmake)
 
 project(${CN_PROJECT_NAME})
 
+if(WIN32) 
+#"C:\Program Files\CMake\bin\cmake.exe" -G  "Visual Studio 14 2015 Win64" ..
+#msbuild catalyst.sln /p:Configuration=Release
+					 
+set(BOOST_LIBRARYDIR C:/local/boost_1_63_0/lib64-msvc-14.0)
+set(BOOST_INCLUDEDIR C:/local/boost_1_63_0/boost)
+set(BOOST_ROOT C:/local/boost_1_63_0)
+#b2 variant=debug,release link=static runtime-link=static address-model=64
+
+set(CMAKE_PREFIX_PATH C:/Qt/5.10.1/msvc2015_64/lib/cmake/Qt5)
+set(PROJECT_SOURCE_DIR C:/catalyst-wallet)
+endif()
+
+# Get and add-definition for AboutDialog.cpp
+# Set something in case git is not found
+set(GIT_REVISION "unknown")
+if (GIT_FOUND)
+    execute_process(
+        COMMAND ${GIT_EXECUTABLE} rev-parse --short HEAD
+        WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}"
+        OUTPUT_VARIABLE GIT_REVISION
+        OUTPUT_STRIP_TRAILING_WHITESPACE
+    )
+    message(STATUS "Git Revision ${GIT_REVISION}")
+else()
+    message(STATUS "Git not found")
+endif()
+
 execute_process(COMMAND git log -1 --pretty=format:%h
 WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
 OUTPUT_VARIABLE GIT_REVISION)
@@ -29,7 +57,7 @@ else(WIN32)
   set(Boost_USE_STATIC_RUNTIME ON)
 endif(WIN32)
 
-find_package(Boost 1.55 REQUIRED COMPONENTS date_time filesystem program_options regex serialization system thread chrono)
+find_package(Boost 1.58 REQUIRED COMPONENTS date_time filesystem program_options regex serialization system thread chrono)
 if ((${Boost_MAJOR_VERSION} EQUAL 1) AND (${Boost_MINOR_VERSION} EQUAL 54))
 	message(SEND_ERROR "Boost version 1.54 is unsupported, more details are available here http://goo.gl/RrCFmA")
 endif ()
