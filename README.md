@@ -2,7 +2,11 @@
 
 ```
 git clone https://github.com/CatalystCash/Catalyst-Cash.git
+cd Catalyst-Cash
+git submodule init
+git submodule update --remote
 ```
+
 
 **2. Set symbolic link to coin sources at the same level as `src`. For example:**
 
